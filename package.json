@@ -1,0 +1,24 @@
+{
+  "name": "picky-home",
+  "version": "1.0.0",
+  "description": "IoT home",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joannetruong/PickyHome.git"
+  },
+  "author": "Matt Dang, Joanne Troung, Naoki Yokoyama, Jeff Zhu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joannetruong/PickyHome/issues"
+  },
+  "homepage": "https://github.com/joannetruong/PickyHome#readme",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4"
+  }
+}
