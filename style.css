@@ -8,6 +8,17 @@
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
+    position: absolute;
+}
+.articleTitle {
+  margin-top: 5%;
+  font-family: 'Patua One';
+  font-size: 5vw;
+  line-height: 1em;
+  text-align: center;
+  color: blue;
+  margin-top: -40px; 
+  padding-top: 4vw;
 }
 #icon-desc{
     font-size: 16px;
@@ -19,6 +30,7 @@
 .icon-bar {
     padding:0px;
     width: 80px;
+    height:100vh;
     top:0px;
     left:0px;
     bottom:0px;

@@ -9,22 +9,34 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 
 <script>
 function buttonClick(idx){
+    var xhr = new XMLHttpRequest();
     var x = document.getElementById(idx);
     if($(x).hasClass('active')){
+        xhr.open("POST", 'https://api.particle.io/v1/devices/430034000f47343432313031/led?access_token=34b551612fe36e083bacebc8e50dfa269acbb610', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            value: 'off'
+        }));
         $(x).removeClass('active');
-        x.innerText= "Turn on light";
+        x.innerText= "Turn off light";
     }
     else{
         $(x).addClass('active');
-        x.innerText= "Turn off light";
+        xhr.open("POST", 'https://api.particle.io/v1/devices/430034000f47343432313031/led?access_token=34b551612fe36e083bacebc8e50dfa269acbb610', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            value: 'on' + idx
+        }));
+        x.innerText= "Turn on light";
     }
 }
 
 </script>
+</head>
 <body>
     <div class="container">
 <div class="row">
@@ -39,17 +51,17 @@ function buttonClick(idx){
             <div class="col-md-4">
                 <center> Naoki Lamp #1 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button1" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button1');">Turn on light</button></center>
+                <center><button id="1" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('1');" name="arg" value="off">Turn on lamp</button></center>
             </div>
             <div class="col-md-4">
                 <center> Joanne Lamp #1 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button2" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button2');">Turn on light</button></center>
+                <center><button id="2" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('2');" name="arg" value="off">Turn on lamp</button></center>
             </div>
             <div class="col-md-4">
                 <center> Matt Lamp #1 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button3" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button3');">Turn on light</button></center>
+                <center><button id="3" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('3');" name="arg" value="off">Turn on lamp</button></center>
             </div>
         </div>
         <br>
@@ -57,17 +69,17 @@ function buttonClick(idx){
             <div class="col-sm-4">
                 <center> Naoki Lamp #2 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button4" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button4');">Turn on light</button></center>
+                <center><button id="4" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('4');" name="arg" value="off">Turn on lamp</button></center>
             </div>
             <div class="col-sm-4">
                 <center> Joanne Lamp #2 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button5" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button5');">Turn on light</button></center>
+                <center><button id="5" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('5');" name="arg" value="off">Turn on lamp</button></center>
             </div>
             <div class="col-sm-4">
                 <center> Matt Lamp #2 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button6" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button6');">Turn on light</button></center>
+                <center><button id="6" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('6');" name="arg" value="off">Turn on lamp</button></center>
             </div>
         </div>
     </div>

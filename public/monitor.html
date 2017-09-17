@@ -12,7 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 
 <script>
 Highcharts.setOptions({
@@ -130,47 +130,57 @@ function generateEnergy(){
     hideIcon('energyPic', 'container2')
 }
 
+function updateChart(link, chart){
+    $.getJSON(link, function(data){
+        newData = data.vals.map(function(row) {
+            return [new Date(row[0]).getTime(), row[1]];
+        });
+    chart.series.setData(newData);
+    })
+};
+
 </script>
+</head>
 <body>
-    <body>
     <div class="container">
-<div class="row">
-    <div class="icon-bar col-md-2">
-        <a href="../index.html" style="font-size:20px; background-color: #089cdb;"><i class="fa fa-home"></i><br>PickyHome</a> 
-        <a id="icon-desc" href="control.html" onclick="showControl();"><i class="fa fa-bolt icon"></i><br>Control</a> 
-        <a id="icon-desc" href="monitor.html"><i class="fa fa-bar-chart icon"></i><br>Monitor</a> 
-    </div>
-    <div class="col-md-8 bknd">
-        <br>
         <div class="row">
-            <div class="col-md-3">
-                <img id="tempPic" onclick="generateTemp();" class="img-fluid" src="img/temp.png"/>
+            <div class="icon-bar col-md-2">
+                <a href="../index.html" style="font-size:20px; background-color: #089cdb;"><i class="fa fa-home"></i><br>PickyHome</a> 
+                <a id="icon-desc" href="control.html" onclick="showControl();"><i class="fa fa-bolt icon"></i><br>Control</a> 
+                <a id="icon-desc" href="monitor.html"><i class="fa fa-bar-chart icon"></i><br>Monitor</a> 
             </div>
-            <div class="col-md-9">
-                <div id="container1" class="hidden" style="height: 250px;"> </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3">
-                        <img id="energyPic" onclick="generateEnergy();" class="img-fluid" src="img/power.jpeg"/>
-            </div>
-            <div class="col-md-9">
-                <div id="container2" class="hidden" style="height: 44vh;"> </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
             <div class="col-md-8 bknd">
+                <br>
                 <div class="row">
-                    
+                    <div class="col-md-3">
+                        <img id="tempPic" onclick="generateTemp();" class="img-fluid" src="img/temp.png"/>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="container1" class="hidden" style="height: 250px;"> </div>
+                    </div>
                 </div>
-                <br><br><br>
+                <br><br> <br><br> <br><br> <br>
                 <div class="row">
-                    
+                    <div class="col-md-3">
+                                <img id="energyPic" onclick="generateEnergy();" class="img-fluid" src="img/power.jpeg"/>
+                    </div>
+                    <div class="col-md-9">
+                        <div id="container2" class="hidden" style="height: 44vh;"> </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+</div>
 </body>
+
+<script>
+setInterval(function(){
+    if($('.active').length == 'tempPic'){
+        active_button = parseInt($("button.active").attr('id'))
+        updateChart('http://picky-home.herokuapp.com/readings?type=temp', tempChart)
+    }
+    else if($('.active').length == 'energyPic'){
+        updateChart('http://picky-home.herokuapp.com/readings?type=energy', energyChart)
+    }
+        }, 1000);
+</script>
