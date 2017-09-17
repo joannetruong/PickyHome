@@ -3,157 +3,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 
-<script src="https://code.highcharts.com/stock/highstock.js"></script>
-<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-<script src="https://highcharts.github.io/export-csv/export-csv.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="index.js">
+<link rel="stylesheet" href="../style.css">
 
 <script>
-    Highcharts.setOptions({
-  global: {
-    useUTC: false
-  }
-});
-var tempOptions = {
-    chart: {
-        renderTo: 'container1',
-        type: 'line',
-        zoomType: 'xy',
-        panning: true,
-        panKey: 'shift'
-    },
-    title: {
-        text: 'Temperature Data'
-        },
-        xAxis: {
-            type: 'datetime', 
-            dateTimeLabelFormats: {
-                    minute: '%H:%M',
-                    hour: '%H:%M',
-                    day: '%e. %b',
-                    week: '%e. %b',
-                    month: '%b \'%y',
-                    year: '%Y'
-            },
-            title: {
-                text: 'Time'
-            }
-        },
-        yAxis: {
-            min: 0,
-            max: 257,
-            tickInterval: 25,
-            title: {
-                text: 'Temperature (F)'
-            }
-        },
-    series: []
-};
-
-var energyOptions = {
-    chart: {
-        renderTo: 'container2',
-        type: 'line',
-        zoomType: 'xy',
-        panning: true,
-        panKey: 'shift'
-    },
-    title: {
-            text: 'Energy Data'
-        },
-        xAxis: {
-            type: 'datetime', 
-            dateTimeLabelFormats: {
-                    minute: '%H:%M',
-                    hour: '%H:%M',
-                    day: '%e. %b',
-                    week: '%e. %b',
-                    month: '%b \'%y',
-                    year: '%Y'
-            },
-            title: {
-                text: 'Time'
-            }
-        },
-        yAxis: {
-            min: 0,
-            max: 200,
-            tickInterval: 25,
-            title: {
-                text: 'Energy (kWh)'
-            }
-        },
-    series: []
-};
-var drawChart = function (link, name, color, chart) {
-    $.getJSON(link, function(data){
-    newData = data.vals.map(function(row) {
-        return [new Date(row[0]).getTime(), row[1]];
-    });
-    var newSeriesData = {
-        name: name,
-        data: newData,
-        color: color,
-    };
-    chart.addSeries(newSeriesData);
-});
-};
-
-function generateChart(idx){
-    var index = parseInt(idx)
-    tempChart = new Highcharts.Chart(tempOptions);
-    energyChart = new Highcharts.Chart(energyOptions);
-    drawChart('http://localhost:3000/Temp_L', 'Temperature', '#7cb5ec', tempChart)
-    drawChart('http://localhost:3000/Energy', 'Energy', '#b865d3', liqChart)
-}
-
 function buttonClick(idx){
+    var xhr = new XMLHttpRequest();
     var x = document.getElementById(idx);
     if($(x).hasClass('active')){
+        xhr.open("POST", 'https://api.particle.io/v1/devices/430034000f47343432313031/led?access_token=34b551612fe36e083bacebc8e50dfa269acbb610', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            value: 'off'
+        }));
         $(x).removeClass('active');
         x.innerText= "Turn on light";
     }
     else{
         $(x).addClass('active');
+        xhr.open("POST", 'https://api.particle.io/v1/devices/430034000f47343432313031/led?access_token=34b551612fe36e083bacebc8e50dfa269acbb610', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            value: 'on' + idx
+        }));
         x.innerText= "Turn off light";
     }
 }
 
-
 </script>
+</head>
+<body>
+    <div class="container">
 <div class="row">
-    <div class="col-sm-2" style="padding: 0px;">
-        <div class="icon-bar">
-          <a href="../index.html" style="font-size:14px; background-color: #089cdb;"><i class="fa fa-home"></i><br>PickyHome</a>
-          <a id="icon-desc" href="" onclick="showControl();"><i class="fa fa-bolt icon"></i><br>Control</a> 
-          <a id="icon-desc" href="monitor.html"><i class="fa fa-bar-chart icon"></i><br>Monitor</a> 
-        </div>
+    <div class="icon-bar col-md-2">
+        <a href="../index.html" style="font-size:20px; background-color: #089cdb;"><i class="fa fa-home"></i><br>PickyHome</a> 
+        <a id="icon-desc" href="" onclick="showControl();"><i class="fa fa-bolt icon"></i><br>Control</a> 
+        <a id="icon-desc" href="monitor.html"><i class="fa fa-bar-chart icon"></i><br>Monitor</a> 
     </div>
-    <div class="col-sm-10" style="padding: 0px;">
+    <div class="col-md-8 bknd">
         <br>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-md-4">
                 <center> Naoki Lamp #1 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button1" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button1');">Turn on light</button></center>
+                <center><button id="1" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('1');" name="arg" value="off">Turn on lamp</button></center>
             </div>
-            <div class="col-sm-4">
+            <div class="col-md-4">
                 <center> Joanne Lamp #1 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button2" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button2');">Turn on light</button></center>
+                <center><button id="2" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('2');" name="arg" value="off">Turn on lamp</button></center>
             </div>
-            <div class="col-sm-4">
+            <div class="col-md-4">
                 <center> Matt Lamp #1 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button3" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button3');">Turn on light</button></center>
+                <center><button id="3" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('3');" name="arg" value="off">Turn on lamp</button></center>
             </div>
         </div>
         <br>
@@ -161,19 +69,20 @@ function buttonClick(idx){
             <div class="col-sm-4">
                 <center> Naoki Lamp #2 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button4" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button4');">Turn on light</button></center>
+                <center><button id="4" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('4');" name="arg" value="off">Turn on lamp</button></center>
             </div>
             <div class="col-sm-4">
                 <center> Joanne Lamp #2 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button5" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button5');">Turn on light</button></center>
+                <center><button id="5" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('5');" name="arg" value="off">Turn on lamp</button></center>
             </div>
             <div class="col-sm-4">
                 <center> Matt Lamp #2 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="button6" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('button6');">Turn on light</button></center>
+                <center><button id="6" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('6');" name="arg" value="off">Turn on lamp</button></center>
             </div>
         </div>
     </div>
 </div>
-<br><br>
+</div>
+</body>

@@ -53,6 +53,22 @@ routes.get('/public/img/temp.png', function (req, res) {
     res.status(200).sendFile('temp.png', {root: './public/img'});
 });
 
+routes.get('/public/img/iot.jpeg', function (req, res) {
+    res.status(200).sendFile('iot.jpeg', {root: './public/img'});
+});
+
+routes.get('/public/img/smart_home.jpeg', function (req, res) {
+    res.status(200).sendFile('smart_home.jpeg', {root: './public/img'});
+});
+
+routes.get('/public/img/smart.png', function (req, res) {
+    res.status(200).sendFile('smart.png', {root: './public/img'});
+});
+
+routes.get('/style.css', function (req, res) {
+    res.status(200).sendFile('style.css', {root: './'});
+});
+
 routes.post('/command', function (req, res) {
 
 });
