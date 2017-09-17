@@ -1,6 +1,7 @@
 'use strict';
 
-let database = require(__dirname + '/../lib/readingsDatabase.js');
+let usersDatabase = require(__dirname + '/../lib/usersDatabase.js');
+let readingsDatabase = require(__dirname + '/../lib/readingsDatabase.js');
 let routes = require('express').Router();
 
 // GET request to home page
@@ -60,7 +61,7 @@ routes.get('/readings', function (req, res) {
     console.log('GET request to /readings.');
     if (req.query) {
         let type = req.query.type;
-        database.readData(type, function (data) {
+        readingsDatabase.readData(type, function (data) {
             res.status(200).send(data);
         });
     } else {
@@ -79,11 +80,37 @@ routes.post('/readings', function (req, res) {
                 energy: parseFloat(req.body.energy)
             };
 
-            database.writeData(data, function () {
+            readingsDatabase.writeData(data, function () {
                 res.status(200).send();
             });
         } else {
-            res.status(400).send('You fucked up.');
+            res.status(400).send('Request has an invalid body.');
+        }
+    } else {
+        console.error('Request has no body.');
+        res.status(400).send('ERROR! There\'s no body in the request! What is you doing???');
+    }
+});
+
+routes.post('/login', function (req, res) {
+    console.log('LOGIN ATTEMPT.');
+
+    if (req.body) {
+        if (req.body.username && req.body.password) {
+            let loginInfo = {
+                username: req.body.username,
+                password: req.body.password
+            };
+
+            usersDatabase.authenticate(loginInfo, function (authResults) {
+                if (authResults.authorized) {
+                    // @TODO login
+                } else {
+                    res.status(401).send(authResults.message);
+                }
+            });
+        } else {
+            res.status(400).send('Request has an invalid body.');
         }
     } else {
         console.error('Request has no body.');
