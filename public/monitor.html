@@ -132,7 +132,7 @@ function generateEnergy(){
 
 function updateChart(link, chart){
     $.getJSON(link, function(data){
-        newData = data.vals.map(function(row) {
+        newData = data.map(function(row) {
             return [new Date(row[0]).getTime(), row[1]];
         });
     chart.series.setData(newData);
