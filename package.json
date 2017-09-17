@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/joannetruong/PickyHome#readme",
   "dependencies": {
+    "api.ai": "^1.0.3",
+    "apiai": "^4.0.3",
     "body-parser": "^1.18.1",
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "moment": "^2.18.1",
+    "mongoose": "^4.11.11"
   }
 }
