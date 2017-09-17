@@ -1,8 +1,6 @@
 'use strict';
 
 let routes = require(__dirname + '/routes/index.js');
-//let command = require(__dirname + '/lib/command.js');
-let database = require(__dirname + '/lib/database.js');
 let express = require('express');
 let bodyParser = require('body-parser');
 
