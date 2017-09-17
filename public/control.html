@@ -21,6 +21,7 @@ function buttonClick(idx){
         xhr.send(JSON.stringify({
             value: 'off'
         }));
+        x.value='off';
         $(x).removeClass('active');
         x.innerText= "Turn on light";
     }
@@ -29,8 +30,9 @@ function buttonClick(idx){
         xhr.open("POST", 'https://api.particle.io/v1/devices/430034000f47343432313031/led?access_token=34b551612fe36e083bacebc8e50dfa269acbb610', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
-            value: 'on' + idx
+            value: 'on'
         }));
+        x.value='on';
         x.innerText= "Turn off light";
     }
 }
@@ -51,7 +53,7 @@ function buttonClick(idx){
             <div class="col-md-4">
                 <center> Naoki Lamp #1 </center>
                 <img class="img-fluid" src="img/light1.png"/>
-                <center><button id="1" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('1');" name="arg" value="off">Turn on lamp</button></center>
+                <center><button id="1" class= "btn btn-outline-primary btn-sm" onclick="buttonClick('1');" name="arg" value="on">Turn on lamp</button></center>
             </div>
             <div class="col-md-4">
                 <center> Joanne Lamp #1 </center>
