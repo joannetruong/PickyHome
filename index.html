@@ -3,10 +3,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
 
-<script src="https://code.highcharts.com/stock/highstock.js"></script>
-<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
-<script src="https://highcharts.github.io/export-csv/export-csv.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
@@ -15,115 +11,18 @@
 
 <link rel="stylesheet" href="public/style.css">
 <link rel="stylesheet" href="public/index.js">
-
-<script>
-    Highcharts.setOptions({
-  global: {
-    useUTC: false
-  }
-});
-var tempOptions = {
-    chart: {
-        renderTo: 'container1',
-        type: 'line',
-        zoomType: 'xy',
-        panning: true,
-        panKey: 'shift'
-    },
-    title: {
-        text: 'Temperature Data'
-        },
-        xAxis: {
-            type: 'datetime', 
-            dateTimeLabelFormats: {
-                    minute: '%H:%M',
-                    hour: '%H:%M',
-                    day: '%e. %b',
-                    week: '%e. %b',
-                    month: '%b \'%y',
-                    year: '%Y'
-            },
-            title: {
-                text: 'Time'
-            }
-        },
-        yAxis: {
-            min: 0,
-            max: 257,
-            tickInterval: 25,
-            title: {
-                text: 'Temperature (F)'
-            }
-        },
-    series: []
-};
-
-var energyOptions = {
-    chart: {
-        renderTo: 'container2',
-        type: 'line',
-        zoomType: 'xy',
-        panning: true,
-        panKey: 'shift'
-    },
-    title: {
-            text: 'Energy Data'
-        },
-        xAxis: {
-            type: 'datetime', 
-            dateTimeLabelFormats: {
-                    minute: '%H:%M',
-                    hour: '%H:%M',
-                    day: '%e. %b',
-                    week: '%e. %b',
-                    month: '%b \'%y',
-                    year: '%Y'
-            },
-            title: {
-                text: 'Time'
-            }
-        },
-        yAxis: {
-            min: 0,
-            max: 200,
-            tickInterval: 25,
-            title: {
-                text: 'Energy (kWh)'
-            }
-        },
-    series: []
-};
-var drawChart = function (link, name, color, chart) {
-    $.getJSON(link, function(data){
-    newData = data.vals.map(function(row) {
-        return [new Date(row[0]).getTime(), row[1]];
-    });
-    var newSeriesData = {
-        name: name,
-        data: newData,
-        color: color,
-    };
-    chart.addSeries(newSeriesData);
-});
-};
-
-function generateChart(idx){
-    var index = parseInt(idx)
-    tempChart = new Highcharts.Chart(tempOptions);
-    energyChart = new Highcharts.Chart(energyOptions);
-    drawChart('http://localhost:3000/Temp_L', 'Temperature', '#7cb5ec', tempChart)
-    drawChart('http://localhost:3000/Energy', 'Energy', '#b865d3', liqChart)
-}
-</script>
-<div class="row">
-    <div class="col-sm-3">
-        <div class="icon-bar">
-          <a href="" style="font-size:20px; background-color: #089cdb;"><i class="fa fa-home"></i><br>PickyHome</a> 
-          <a id="icon-desc" href="public/control.html""><i class="fa fa-bolt icon"></i><br>Control</a>
-          <a id="icon-desc" href="public/monitor.html"><i class="fa fa-bar-chart icon"></i><br>Monitor</a>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="icon-bar col-md-2">
+                <div class="">
+                  <a href="" style="font-size:20px; background-color: #089cdb;"><i class="fa fa-home"></i><br>PickyHome</a> 
+                  <a id="icon-desc" href="public/control.html""><i class="fa fa-bolt icon"></i><br>Control</a> 
+                  <a id="icon-desc" href="public/monitor.html"><i class="fa fa-bar-chart icon"></i><br>Monitor</a> 
+                </div>
+            </div>
+            <div class="col-md-8 bknd">
+                <img src="public/img/smart_home.jpeg"/>
+            </div>
         </div>
-    </div>
-    <div class="col-sm-8">
-    </div>
-
 </div>

@@ -12,13 +12,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
-
-
 <link rel="stylesheet" href="style.css">
 
 <script>
-
-    Highcharts.setOptions({
+Highcharts.setOptions({
   global: {
     useUTC: false
   }
@@ -107,59 +104,73 @@ var drawChart = function (link, name, color, chart) {
     chart.addSeries(newSeriesData);
 });
 };
-function hideIcon(idx){
+function hideIcon(idx, idx2){
     var x = document.getElementById(idx);
+    var y = document.getElementById(idx2);
     if($(x).hasClass('active')){
         $(x).removeClass('active');
+        $(y).removeClass("visible");
+        $(y).addClass("hidden");
     }
     else{
         $(x).addClass('active');
+        $(y).removeClass("hidden");
+        $(y).addClass("visible");
     }
 }
 function generateTemp(){
     tempChart = new Highcharts.Chart(tempOptions);
     drawChart('http://picky-home.herokuapp.com/readings?type=temp', 'Temperature', '#7cb5ec', tempChart)
-    var x = document.getElementById('container1')
-    $(x).addClass('visible');
-    $(x).removeClass('hidden');
+    hideIcon('tempPic', 'container1');
 }
 
 function generateEnergy(){
     energyChart = new Highcharts.Chart(energyOptions);
     drawChart('http://picky-home.herokuapp.com/readings?type=energy', 'Energy', '#b865d3', energyChart)
+    hideIcon('energyPic', 'container2')
 }
 
 </script>
-<div class='container'>
+<body>
+    <body>
+    <div class="container">
 <div class="row">
-    <div class="col-md-2">
-        <div class="icon-bar">
-          <a href="../index.html" style="font-size:20px; background-color: #089cdb;"><i class="fa fa-home"></i><br>PickyHome</a>
-          <a id="icon-desc" href="control.html""><i class="fa fa-bolt icon"></i><br>Control</a> 
-          <a id="icon-desc" href=""><i class="fa fa-bar-chart icon"></i><br>Monitor</a> 
-        </div>
+    <div class="icon-bar col-md-2">
+        <a href="../index.html" style="font-size:20px; background-color: #089cdb;"><i class="fa fa-home"></i><br>PickyHome</a> 
+        <a id="icon-desc" href="control.html" onclick="showControl();"><i class="fa fa-bolt icon"></i><br>Control</a> 
+        <a id="icon-desc" href="monitor.html"><i class="fa fa-bar-chart icon"></i><br>Monitor</a> 
     </div>
-    <div class="col-md-10">
+    <div class="col-md-8 bknd">
+        <br>
         <div class="row">
             <div class="col-md-3">
                 <img id="tempPic" onclick="generateTemp();" class="img-fluid" src="img/temp.png"/>
             </div>
             <div class="col-md-9">
-                <div id="container1" class="hidden" style="height: 44vh;"> </div>
+                <div id="container1" class="hidden" style="height: 250px;"> </div>
             </div>
         </div>
-        <br><br>
+        <br>
         <div class="row">
             <div class="col-md-3">
-                <img id="energyPic" onclick="generateEnergy();" class="img-fluid" src="img/power.jpeg"/>
+                        <img id="energyPic" onclick="generateEnergy();" class="img-fluid" src="img/power.jpeg"/>
             </div>
             <div class="col-md-9">
                 <div id="container2" class="hidden" style="height: 44vh;"> </div>
             </div>
-            
         </div>
     </div>
-
 </div>
-<script>
-</script>
+</div>
+            <div class="col-md-8 bknd">
+                <div class="row">
+                    
+                </div>
+                <br><br><br>
+                <div class="row">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
