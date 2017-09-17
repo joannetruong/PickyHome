@@ -175,12 +175,12 @@ function updateChart(link, chart){
 
 <script>
 setInterval(function(){
-    if($('.active').length == 'tempPic'){
-        active_button = parseInt($("button.active").attr('id'))
+    if($('.active').attr("id") == 'tempPic'){
         updateChart('http://picky-home.herokuapp.com/readings?type=temp', tempChart)
     }
-    else if($('.active').length == 'energyPic'){
+    else if($('.active').attr("id") == 'energyPic'){
         updateChart('http://picky-home.herokuapp.com/readings?type=energy', energyChart)
     }
         }, 1000);
 </script>
+</html>

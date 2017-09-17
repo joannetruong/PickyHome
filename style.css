@@ -2,20 +2,34 @@
     margin: 0px;
     padding:0px;
 }
-.firstimg {
-    margin: 0px;
+.thumbnail {
+  margin: 0px;
     padding:0px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
+}
+
+.caption {
+    position: absolute;
+    top: 55%;
+    left: 100px;
+    width: 100%;
+    font-family: 'Oleo Script';
+    font-size: 200px;
+    color: white;
+}
+.firstimg {
+    
     position: absolute;
 }
 .articleTitle {
   margin-top: 5%;
-  font-family: 'Patua One';
+  
   font-size: 5vw;
   line-height: 1em;
-  text-align: center;
+  
   color: blue;
   margin-top: -40px; 
   padding-top: 4vw;

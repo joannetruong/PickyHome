@@ -22,7 +22,7 @@ function buttonClick(idx){
             value: 'off'
         }));
         $(x).removeClass('active');
-        x.innerText= "Turn off light";
+        x.innerText= "Turn on light";
     }
     else{
         $(x).addClass('active');
@@ -31,7 +31,7 @@ function buttonClick(idx){
         xhr.send(JSON.stringify({
             value: 'on' + idx
         }));
-        x.innerText= "Turn on light";
+        x.innerText= "Turn off light";
     }
 }
 
