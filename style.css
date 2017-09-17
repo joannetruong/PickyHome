@@ -3,7 +3,7 @@
     padding:0px;
 }
 .thumbnail {
-  margin: 0px;
+    margin: 0px;
     padding:0px;
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -13,11 +13,11 @@
 
 .caption {
     position: absolute;
-    top: 55%;
-    left: 100px;
+    top: 0px;
+    left: 175px;
     width: 100%;
     font-family: 'Oleo Script';
-    font-size: 200px;
+    font-size: 150px;
     color: white;
 }
 .firstimg {
@@ -44,7 +44,7 @@
 .icon-bar {
     padding:0px;
     width: 80px;
-    height:100vh;
+    height:100%;
     top:0px;
     left:0px;
     bottom:0px;
