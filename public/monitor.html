@@ -100,6 +100,7 @@ var drawChart = function (link, name, color, chart) {
         name: name,
         data: newData,
         color: color,
+        series: 0
     };
     chart.addSeries(newSeriesData);
 });
@@ -135,7 +136,7 @@ function updateChart(link, chart){
         newData = data.map(function(row) {
             return [new Date(row[0]).getTime(), row[1]];
         });
-    chart.series.setData(newData);
+    chart.series[0].setData(newData);
     })
 };
 
