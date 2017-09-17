@@ -140,6 +140,14 @@ function updateChart(link, chart){
     })
 };
 
+function test(){
+    $.getJSON('http://picky-home.herokuapp.com/readings?type=energy', function(data){
+        var newData = data[data.length-1][1]
+        var userInput = document.getElementById("userInput").value;
+        document.getElementById("demo").innerHTML = ("Total Energy Charge: $" + userInput + newData);
+    })
+};
+</script>
 </script>
 </head>
 <body>
@@ -153,19 +161,23 @@ function updateChart(link, chart){
             <div class="col-md-8 bknd">
                 <br>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <img id="tempPic" onclick="generateTemp();" class="img-fluid" src="img/temp.png"/>
                     </div>
-                    <div class="col-md-9">
-                        <div id="container1" class="hidden" style="width: 800px; height: 400px;"> </div>
+                    <div class="col-md-8">
+                        <div id="container1" class="hidden" style="margin-left: 50px; width: 750px; height: 400px;"> </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                                <img id="energyPic" onclick="generateEnergy();" class="img-fluid" src="img/power.jpeg"/>
+                    <div class="col-md-4">
+                        <img id="energyPic" onclick="generateEnergy();" class="img-fluid" src="img/power.jpeg"/>
+                        <br>
+                        <input type="text" id="userInput" style="margin-left: 20px; width: 125px;"></input><button class= "btn btn-outline-primary btn-sm" style="margin-left:15px;" onclick="test();">Submit</button>
+                        <label style="margin-left: 15px; text-align: center;"> Energy Charge (per kWh)</label>
+                        <p id="demo"></p>  
                     </div>
-                    <div class="col-md-9">
-                        <div id="container2" class="hidden" style="width: 800px; height: 400px;"> </div>
+                    <div class="col-md-8">
+                        <div id="container2" class="hidden" style="margin-left: 50px; width: 750px; height: 400px;"> </div>
                     </div>
                 </div>
             </div>
