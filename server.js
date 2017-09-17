@@ -1,6 +1,6 @@
 'use strict';
 
-let command = require(__dirname + '/lib/command.js');
+//let command = require(__dirname + '/lib/command.js');
 let database = require(__dirname + '/lib/database.js');
 let express = require('express');
 let bodyParser = require('body-parser');
