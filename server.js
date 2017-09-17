@@ -30,10 +30,11 @@ app.post('/command', function (req, res) {
 });
 
 app.get('/readings', function (req, res) {
+    console.log('GET request to /readings.');
     if (req.query) {
         let type = req.query.type;
         database.readData(type, function (data) {
-            res.sendStatus(200).send(data);
+            res.send(data);
         });
     } else {
         console.error('Request has no query string params.');
@@ -42,7 +43,7 @@ app.get('/readings', function (req, res) {
 });
 
 app.post('/readings', function (req, res) {
-    console.log('Received.');
+    console.log('POST request to /readings.');
     if (req.body) {
         console.log(req.body);
         if (req.body.temp && req.body.energy) {
