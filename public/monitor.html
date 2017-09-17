@@ -144,7 +144,7 @@ function test(){
     $.getJSON('http://picky-home.herokuapp.com/readings?type=energy', function(data){
         var newData = data[data.length-1][1]
         var userInput = document.getElementById("userInput").value;
-        document.getElementById("demo").innerHTML = ("Total Energy Charge: $" + userInput + newData);
+        document.getElementById("demo").innerHTML = ("Total Energy Charge: $" + (parseFloat(userInput) * parseFloat(newData)).toFixed(2));
     })
 };
 </script>
