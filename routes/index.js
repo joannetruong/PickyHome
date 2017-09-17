@@ -1,6 +1,6 @@
 'use strict';
 
-let database = require(__dirname + '/lib/database.js');
+let database = require(__dirname + '/../lib/database.js');
 let routes = require('express').Router();
 
 // GET request to home page
