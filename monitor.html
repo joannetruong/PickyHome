@@ -2,6 +2,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
@@ -11,12 +12,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="index.js">
 
 <script>
+
     Highcharts.setOptions({
   global: {
     useUTC: false
@@ -95,7 +96,7 @@ var energyOptions = {
 };
 var drawChart = function (link, name, color, chart) {
     $.getJSON(link, function(data){
-    newData = data.vals.map(function(row) {
+    newData = data.map(function(row) {
         return [new Date(row[0]).getTime(), row[1]];
     });
     var newSeriesData = {
@@ -106,16 +107,31 @@ var drawChart = function (link, name, color, chart) {
     chart.addSeries(newSeriesData);
 });
 };
-
-function generateChart(idx){
-    var index = parseInt(idx)
-    tempChart = new Highcharts.Chart(tempOptions);
-    energyChart = new Highcharts.Chart(energyOptions);
-    drawChart('http://localhost:3000/Temp_L', 'Temperature', '#7cb5ec', tempChart)
-    drawChart('http://localhost:3000/Energy', 'Energy', '#b865d3', liqChart)
+function hideIcon(idx){
+    var x = document.getElementById(idx);
+    if($(x).hasClass('active')){
+        $(x).removeClass('active');
+    }
+    else{
+        $(x).addClass('active');
+    }
 }
+function generateTemp(){
+    tempChart = new Highcharts.Chart(tempOptions);
+    drawChart('http://picky-home.herokuapp.com/readings?type=temp', 'Temperature', '#7cb5ec', tempChart)
+    var x = document.getElementById('container1')
+    $(x).addClass('visible');
+    $(x).removeClass('hidden');
+}
+
+function generateEnergy(){
+    energyChart = new Highcharts.Chart(energyOptions);
+    drawChart('http://picky-home.herokuapp.com/readings?type=energy', 'Energy', '#b865d3', energyChart)
+}
+
 </script>
-<div class="row wrapper">
+<div class='container'>
+<div class="row">
     <div class="col-md-2">
         <div class="icon-bar">
           <a href="index.html" style="font-size:20px; background-color: #089cdb;"><i class="fa fa-home"></i><br>PickyHome</a> 
@@ -123,15 +139,27 @@ function generateChart(idx){
           <a id="icon-desc" href=""><i class="fa fa-bar-chart icon"></i><br>Monitor</a> 
         </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-10">
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                    <img class="img-fluid" src="img/temp.png"/>
+            <div class="col-md-3">
+                <img id="tempPic" onclick="generateTemp();" class="img-fluid" src="img/temp.png"/>
             </div>
-            <div class="col-md-4">
-                <img class="img-fluid" src="img/power.jpeg"/>
+            <div class="col-md-9">
+                <div id="container1" class="hidden" style="height: 44vh;"> </div>
             </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-3">
+                <img id="energyPic" onclick="generateEnergy();" class="img-fluid" src="img/power.jpeg"/>
+            </div>
+            <div class="col-md-9">
+                <div id="container2" class="hidden" style="height: 44vh;"> </div>
+            </div>
+            
         </div>
     </div>
 
 </div>
+<script>
+</script>

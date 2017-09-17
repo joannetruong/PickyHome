@@ -30,4 +30,9 @@
 .active {
     background-color: #089cdb;
 }
-
+.hidden{
+    display: none;
+}
+.visible{
+    display: block;
+}
